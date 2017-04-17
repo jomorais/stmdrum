@@ -17,16 +17,27 @@
 #define LCD_RS 	GPIO_Pin_11
 
 #define LCD_PORT_DATA 		GPIOC
-#define LCD_D0 	GPIO_Pin_6
-#define LCD_D1 	GPIO_Pin_7
-#define LCD_D2 	GPIO_Pin_8
-#define LCD_D3 	GPIO_Pin_9
+#define LCD_DB4 	GPIO_Pin_9
+#define LCD_DB5 	GPIO_Pin_8
+#define LCD_DB6 	GPIO_Pin_7
+#define LCD_DB7 	GPIO_Pin_6
+
+#define LCD_JUMP_LINE_1 0x80
+#define LCD_JUMP_LINE_2 0xC0
+
+#define N_LINES 	2
+#define N_COLUMN 	16
+#define N_CHARACTERS N_COLUMN * N_LINES
+char LCD_BUFFER[N_LINES][N_COLUMN];
+
 
 void lcd16x2_init_hw( void );
 void lcd16x2_init ( void );
 void lcd16x2_write_cmd( unsigned char cmd );
 void lcd16x2_write_data( unsigned char data );
-void lcd16x2_write_string ( const char * s , u16 length );
+void lcd16x2_write_string ( u8 column, u8 line, const char * s , u8 length );
 void lcd16x2_clear ( void );
+void lcd16x2_clear_buffer ( void );
+void lcd16x2_update( void );
 
 #endif /* LCD16X2_H_ */

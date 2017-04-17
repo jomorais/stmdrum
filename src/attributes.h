@@ -8,7 +8,7 @@
 #ifndef ATTRIBUTES_H_
 #define ATTRIBUTES_H_
 #include <config.h>
-
+u8 status;
 u16 adc_raw[N_CHANNELS];
 u16 adc_smooth[N_CHANNELS];
 u32 note_play_time[N_CHANNELS];

@@ -26,33 +26,34 @@ void lcd16x2_init_hw ( void )
 void lcd16x2_init ( void )
 {
 	lcd16x2_init_hw();
-	delay_ms(15);
-	lcd16x2_write_cmd( 0x38 );
-	delay_ms(1);
-	lcd16x2_write_cmd( 0x38 );
+	delay_ms(30);
+	lcd16x2_write_cmd( 0x33 );
+	delay_ms(5);
+	lcd16x2_write_cmd( 0x32 );
 	delay_us(100);
-	lcd16x2_write_cmd( 0x38 );
 	lcd16x2_write_cmd( 0x28 );
-	lcd16x2_write_cmd( 0x28 );
-	lcd16x2_write_cmd( 0x0C );
-	lcd16x2_clear();
+	delay_ms(5);
+	lcd16x2_write_cmd( 0x0E );
+	delay_ms(5);
 	lcd16x2_write_cmd( 0x06 );
+	delay_ms(5);
+	memset(LCD_BUFFER,' ',sizeof(LCD_BUFFER));
 }
 
 void lcd16x2_lcd_strobe( void )
 {
 	GPIO_WriteBit(LCD_PORT_CONTROL, LCD_EN, 1);  // EN = 1
-	delay_us(1);
+	delay_us(100);
 	GPIO_WriteBit(LCD_PORT_CONTROL, LCD_EN, 0);  // EN = 0
 }
 
 
 void lcd16x2_write_bus( unsigned char d )
 {
-	GPIO_WriteBit(LCD_PORT_DATA, LCD_D0, d & 0x01);  // LCD_B0
-	GPIO_WriteBit(LCD_PORT_DATA, LCD_D1, d & 0x02);  // LCD_B1
-	GPIO_WriteBit(LCD_PORT_DATA, LCD_D2, d & 0x04);  // LCD_B2
-	GPIO_WriteBit(LCD_PORT_DATA, LCD_D3, d & 0x08);  // LCD_B3
+	GPIO_WriteBit(LCD_PORT_DATA, LCD_DB4, d & 0x01);  // LCD_B0
+	GPIO_WriteBit(LCD_PORT_DATA, LCD_DB5, d & 0x02);  // LCD_B1
+	GPIO_WriteBit(LCD_PORT_DATA, LCD_DB6, d & 0x04);  // LCD_B2
+	GPIO_WriteBit(LCD_PORT_DATA, LCD_DB7, d & 0x08);  // LCD_B3
 }
 
 void lcd16x2_write_cmd( unsigned char cmd )
@@ -81,15 +82,35 @@ void lcd16x2_clear ( void )
 	delay_ms(2);
 }
 
-void lcd16x2_write_string ( const char * s , u16 length )
+void lcd16x2_clear_buffer ( void )
+{
+	memset(LCD_BUFFER,' ',sizeof(LCD_BUFFER));
+}
+
+void lcd16x2_update ( void )
 {
 	lcd16x2_clear();
-	int s_idx = 0;
-	lcd16x2_write_cmd( 0x80 );
-	for ( s_idx = 0 ; s_idx < length - 1; s_idx++ )
+	int s_idx_column = 0;
+	int s_idx_line = 0;
+	lcd16x2_write_cmd( LCD_JUMP_LINE_1 );
+	for(s_idx_line = 0; s_idx_line < N_LINES; s_idx_line++)
 	{
-		lcd16x2_write_data( s[ s_idx ] );
-		if( s_idx == 16 )
-			lcd16x2_write_cmd( 0xC0 );
+		for ( s_idx_column = 0 ; s_idx_column < N_COLUMN - 1; s_idx_column++ )
+		{
+			lcd16x2_write_data( LCD_BUFFER[s_idx_line][s_idx_column] );
+		}
+		lcd16x2_write_cmd( LCD_JUMP_LINE_2 );
+	}
+
+}
+
+void lcd16x2_write_string ( u8 column, u8 line, const char * s , u8 length )
+{
+	if(column < N_COLUMN && line < N_LINES)
+	{
+		u8 idx = 0;
+		for(idx = 0; idx < length; idx++)
+			LCD_BUFFER[line][column + idx] = s[idx];
 	}
 }
+

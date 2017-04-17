@@ -66,6 +66,8 @@ void adccontroller_init(void) {
 	ADC_StartCalibration(ADC1);
 	//Check the end of ADC1 calibration
 	while (ADC_GetCalibrationStatus(ADC1));
+
+	adccontroller_dma1_init();
 }
 
 void adccontroller_dma1_init(void){
@@ -78,7 +80,7 @@ void adccontroller_dma1_init(void){
     //channel will be used for memory to memory transfer
     DMA_InitStructure.DMA_M2M = DMA_M2M_Disable;
     //setting normal mode (non circular)
-    DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+    DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
     //medium priority
     DMA_InitStructure.DMA_Priority = DMA_Priority_High;
     //source and destination data size word=32bit
@@ -93,7 +95,7 @@ void adccontroller_dma1_init(void){
     //chunk of data to be transfered
     DMA_InitStructure.DMA_BufferSize = N_CHANNELS;
     //source and destination start addresses
-    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC1->DR;
+    DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC1_DR;
     DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)adc_raw;
     //send values to DMA registers
     DMA_Init(DMA1_Channel1, &DMA_InitStructure);
@@ -107,6 +109,17 @@ void adccontroller_dma1_init(void){
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
+}
+
+void DMA1_Channel1_IRQHandler(void)
+{
+  //Test on DMA1 Channel1 Transfer Complete interrupt
+  if(DMA_GetITStatus(DMA1_IT_TC1))
+  {
+	status=1;
+   //Clear DMA1 interrupt pending bits
+    DMA_ClearITPendingBit(DMA1_IT_GL1);
+  }
 }
 
 
