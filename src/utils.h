@@ -13,6 +13,7 @@
 volatile uint32_t ticks;
 
 void delay_ms (uint32_t t);
+void delay_us (uint32_t t);
 
 uint32_t millis (void);
 

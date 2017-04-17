@@ -18,5 +18,6 @@
 void adccontroller_init(void);
 u16 adccontroller_read_channel(u8 channel);
 void adccontroller_update_all(void);
+void adccontroller_dma1_init(void);
 
 #endif /* ADCCONTROLLER_H_ */

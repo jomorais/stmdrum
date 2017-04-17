@@ -34,6 +34,17 @@ void delay_ms (uint32_t t)
   }
 }
 
+void delay_us (uint32_t t)
+{
+  while(t--)
+  {
+	  asm("NOP");
+	  asm("NOP");
+	  asm("NOP");
+	  asm("NOP");
+	  asm("NOP");
+  }
+}
 
 void utils_systick_init (uint16_t frequency)
 {

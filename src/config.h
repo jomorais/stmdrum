@@ -17,7 +17,7 @@
 #define CHANNEL_5 			 5
 #define CHANNEL_6 			 6
 #define CHANNEL_7 			 7
-#define START_CHANNEL		 CHANNEL_4
+#define START_CHANNEL		 CHANNEL_0
 #define GAIN 				 1
 
 // desabilita filtro
