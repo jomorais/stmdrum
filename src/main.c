@@ -34,8 +34,6 @@ int main(void)
 	midicontroller_init();
 	lcd16x2_init();
 	lcd16x2_clear_buffer();
-	lcd16x2_write_string(0,0,"STM-DRUMM", 9);
-	lcd16x2_write_string(0,1,"ADC: 1913", 9);
 
 	char adc[16];
 
@@ -50,11 +48,20 @@ int main(void)
 
 	for(;;)
 	{
-		int size = sprintf(adc, "ADC0: %d", adc_raw[CHANNEL_0]);
+		bzero(adc,sizeof(adc));
+		int size = sprintf(adc, "A4:%d", adc_raw[CHANNEL_4]);
 		lcd16x2_write_string(0,0,adc, size);
+		bzero(adc,sizeof(adc));
+		size = sprintf(adc, "A5:%d", adc_raw[CHANNEL_5]);
+		lcd16x2_write_string(0,1,adc, size);
+		bzero(adc,sizeof(adc));
+		size = sprintf(adc, "A6:%d", adc_raw[CHANNEL_6]);
+		lcd16x2_write_string(8,0,adc, size);
+		bzero(adc,sizeof(adc));
+		size = sprintf(adc, "A7:%d", adc_raw[CHANNEL_7]);
+		lcd16x2_write_string(8,1,adc, size);
 		kalman_update();
 		midicontroller_update();
-
 		lcd16x2_update();
 	}
 }

@@ -10,7 +10,7 @@
 void adccontroller_init(void) {
 	//--Enable ADC1 and GPIOA--
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC, ENABLE);
-
+	RCC_ADCCLKConfig(RCC_PCLK2_Div6); //clock for ADC (max 14MHz, 72/6=12MHz)
 	GPIO_InitTypeDef GPIO_InitStructure;
 	//==Configure ADC pins (PA0 -> Channel 0 to PA7 -> Channel 7) as analog inputs==
 	GPIO_StructInit(&GPIO_InitStructure);
@@ -84,8 +84,8 @@ void adccontroller_dma1_init(void){
     //medium priority
     DMA_InitStructure.DMA_Priority = DMA_Priority_High;
     //source and destination data size word=32bit
-    DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;
-    DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;
+    DMA_InitStructure.DMA_PeripheralDataSize = DMA_MemoryDataSize_Word;
+    DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Word;
     //automatic memory destination increment enable.
     DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
     //source address increment disable

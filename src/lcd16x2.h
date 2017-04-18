@@ -24,11 +24,15 @@
 
 #define LCD_JUMP_LINE_1 0x80
 #define LCD_JUMP_LINE_2 0xC0
+#define LCD_JUMP_LINE_3 0x90
+#define LCD_JUMP_LINE_4 0xD0
+#define LCD_UPDATE_FREQ 10
 
 #define N_LINES 	2
 #define N_COLUMN 	16
 #define N_CHARACTERS N_COLUMN * N_LINES
 char LCD_BUFFER[N_LINES][N_COLUMN];
+uint32_t lcd_tick;
 
 
 void lcd16x2_init_hw( void );

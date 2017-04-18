@@ -33,11 +33,10 @@ void lcd16x2_init ( void )
 	delay_us(100);
 	lcd16x2_write_cmd( 0x28 );
 	delay_ms(5);
-	lcd16x2_write_cmd( 0x0E );
-	delay_ms(5);
-	lcd16x2_write_cmd( 0x06 );
+	lcd16x2_write_cmd( 0x0C );
 	delay_ms(5);
 	memset(LCD_BUFFER,' ',sizeof(LCD_BUFFER));
+	lcd_tick = millis();
 }
 
 void lcd16x2_lcd_strobe( void )
@@ -89,19 +88,26 @@ void lcd16x2_clear_buffer ( void )
 
 void lcd16x2_update ( void )
 {
-	lcd16x2_clear();
-	int s_idx_column = 0;
-	int s_idx_line = 0;
-	lcd16x2_write_cmd( LCD_JUMP_LINE_1 );
-	for(s_idx_line = 0; s_idx_line < N_LINES; s_idx_line++)
+	if((millis() - lcd_tick) > ((float)(1.0 / LCD_UPDATE_FREQ) * 1000))
 	{
-		for ( s_idx_column = 0 ; s_idx_column < N_COLUMN - 1; s_idx_column++ )
+		lcd_tick = millis();
+		lcd16x2_clear();
+		int s_idx_column = 0;
+		int s_idx_line = 0;
+		lcd16x2_write_cmd( LCD_JUMP_LINE_1 );
+		for(s_idx_line = 0; s_idx_line < N_LINES; s_idx_line++)
 		{
-			lcd16x2_write_data( LCD_BUFFER[s_idx_line][s_idx_column] );
+			for ( s_idx_column = 0 ; s_idx_column < N_COLUMN - 1; s_idx_column++ )
+				lcd16x2_write_data( LCD_BUFFER[s_idx_line][s_idx_column] );
+			if(s_idx_line == 0)
+				lcd16x2_write_cmd( LCD_JUMP_LINE_2 );
+			if(s_idx_line == 1)
+				lcd16x2_write_cmd( LCD_JUMP_LINE_3 );
+			if(s_idx_line == 2)
+				lcd16x2_write_cmd( LCD_JUMP_LINE_4 );
 		}
-		lcd16x2_write_cmd( LCD_JUMP_LINE_2 );
+		lcd16x2_clear_buffer();
 	}
-
 }
 
 void lcd16x2_write_string ( u8 column, u8 line, const char * s , u8 length )
