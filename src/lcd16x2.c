@@ -88,7 +88,7 @@ void lcd16x2_clear_buffer ( void )
 
 void lcd16x2_update ( void )
 {
-	if((millis() - lcd_tick) > ((float)(1.0 / LCD_UPDATE_FREQ) * 1000))
+	if((millis() - lcd_tick) > ((float)(1.0 / LCD_FRAMERATE) * 1000))
 	{
 		lcd_tick = millis();
 		lcd16x2_clear();

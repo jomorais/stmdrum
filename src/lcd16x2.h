@@ -26,7 +26,7 @@
 #define LCD_JUMP_LINE_2 0xC0
 #define LCD_JUMP_LINE_3 0x90
 #define LCD_JUMP_LINE_4 0xD0
-#define LCD_UPDATE_FREQ 10
+#define LCD_FRAMERATE 2 // Hz
 
 #define N_LINES 	2
 #define N_COLUMN 	16
