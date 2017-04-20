@@ -10,14 +10,16 @@
 #include <stm32f10x.h>
 
 
-volatile uint32_t ticks;
+volatile uint32_t tick_millis;
+volatile uint32_t ms_ticks;
 
 void delay_ms (uint32_t t);
 void delay_us (uint32_t t);
 
-uint32_t millis (void);
+u32 millis (void);
+u32 micros (void);
 
 
-void utils_systick_init(uint16_t frequency);
+void utils_systick_init(void);
 
 #endif /* UTILS_H_ */

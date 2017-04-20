@@ -52,27 +52,21 @@ void midicontroller_update(void)
 					velocity = MAX_VELOCITY;
 				}
 				protocol_midi_note_on(0, notes[channel], (u8)velocity );
-				note_play_time[channel] = 0;
+				note_play_time[channel] = millis();
 				active_note[channel] = ACTIVE_NOTE;
-			}
-			else
-			{
-				note_play_time[channel] = note_play_time[channel] + 1;
 			}
 		}
 		else
 		{
 			if(active_note[channel] == ACTIVE_NOTE)
 			{
-				note_play_time[channel] = note_play_time[channel] + 1;
-				if(note_play_time[channel] > max_play_time[channel])
+				if((millis()- note_play_time[channel]) > max_play_time[channel])
 				{
-					note_play_time[channel] = 0;
+					note_play_time[channel] = millis();
 					active_note[channel] = NOT_ACTIVE_NOTE;
 					protocol_midi_note_off(0, notes[channel], (u8)velocity );
 				}
 			}
 		}
 	}
-	delay_ms(1);
 }

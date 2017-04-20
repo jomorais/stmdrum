@@ -9,48 +9,45 @@
 
 void SysTick_Handler (void)
 {
-	ticks++;
+	tick_millis++;
+}
+
+// return the system clock as microseconds
+uint32_t micros (void)
+{
+   return tick_millis * 1000 + 1000 - SysTick->VAL / 72;
 }
 
 // return the system clock as milliseconds
-uint32_t millis (void)
+u32 millis (void)
 {
-   return ticks;
+   return tick_millis;
 }
 
-void delay_ms (uint32_t t)
+void delay_ms(u32 nTime)
 {
-  uint32_t start, end;
-  start = millis();
-  end = start + t;
-  if (start < end) {
-    while ((millis() >= start) && (millis() < end)) {
-      // do nothing
-    }
-  } else {
-    while ((millis() >= start) || (millis() < end)) {
-      // do nothing
-    };
-  }
+	u32 curTime = tick_millis;
+	while((nTime-(tick_millis-curTime)) > 0);
 }
 
-void delay_us (uint32_t t)
+void delay_us(u32 nTime)
 {
-  while(t--)
-  {
-	  asm("NOP");
-	  asm("NOP");
-	  asm("NOP");
-	  asm("NOP");
-	  asm("NOP");
-  }
+	while(nTime--)
+	{
+		u8 cycles = 16;
+		while(cycles--)
+		{
+			asm("NOP");
+		}
+	}
 }
 
-void utils_systick_init (uint16_t frequency)
+void utils_systick_init (void)
 {
    RCC_ClocksTypeDef RCC_Clocks;
    RCC_GetClocksFreq (&RCC_Clocks);
-   (void) SysTick_Config (RCC_Clocks.HCLK_Frequency / frequency);
+   (void) SysTick_Config (RCC_Clocks.HCLK_Frequency / 1000);
+   tick_millis = 0;
 }
 
 

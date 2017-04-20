@@ -28,40 +28,37 @@ void send_adc(u8 channel, u16 adc_raw, u16 adc_smooth)
 
 int main(void)
 {
-	utils_systick_init(1000);
+	utils_systick_init();
 	adccontroller_init();
 	kalman_init();
 	midicontroller_init();
 	lcd16x2_init();
-	lcd16x2_clear_buffer();
+	main_tick = millis();
 
 	char adc[16];
 
-
-	//Enable DMA1 Channel transfer
-	DMA_Cmd(DMA1_Channel1, ENABLE);
-	//Start ADC1 Software Conversion
-	ADC_SoftwareStartConvCmd(ADC1, ENABLE);
-	//wait for DMA complete
-	while (!status){};
-	ADC_SoftwareStartConvCmd(ADC1, DISABLE);
-
 	for(;;)
 	{
-		bzero(adc,sizeof(adc));
-		int size = sprintf(adc, "A4:%d", adc_raw[CHANNEL_4]);
-		lcd16x2_write_string(0,0,adc, size);
-		bzero(adc,sizeof(adc));
-		size = sprintf(adc, "A5:%d", adc_raw[CHANNEL_5]);
-		lcd16x2_write_string(0,1,adc, size);
-		bzero(adc,sizeof(adc));
-		size = sprintf(adc, "A6:%d", adc_raw[CHANNEL_6]);
-		lcd16x2_write_string(8,0,adc, size);
-		bzero(adc,sizeof(adc));
-		size = sprintf(adc, "A7:%d", adc_raw[CHANNEL_7]);
-		lcd16x2_write_string(8,1,adc, size);
-		kalman_update();
-		midicontroller_update();
+		if( (millis() - main_tick) > TICK_RATE_MS )
+		{
+			bzero(adc,sizeof(adc));
+			int size = sprintf(adc, "A4:%d", adc_smooth[CHANNEL_4]);
+			lcd16x2_write_string(0,0,adc, size);
+			bzero(adc,sizeof(adc));
+			size = sprintf(adc, "A5:%d", adc_smooth[CHANNEL_5]);
+			lcd16x2_write_string(0,1,adc, size);
+			bzero(adc,sizeof(adc));
+			size = sprintf(adc, "A6:%d", adc_smooth[CHANNEL_6]);
+			lcd16x2_write_string(8,0,adc, size);
+			bzero(adc,sizeof(adc));
+			size = sprintf(adc, "A7:%d", adc_smooth[CHANNEL_7]);
+			lcd16x2_write_string(8,1,adc, size);
+			kalman_update();
+			midicontroller_update();
+			main_tick = millis();
+		}
+
+
 		lcd16x2_update();
 	}
 }

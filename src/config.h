@@ -29,5 +29,7 @@
 #define MIDI_ENABLE_VELOCITY 1
 #define VELOCITY_SENSE       0.062011719
 #define MAX_VELOCITY         127
+#define MAX_RATE_HZ			 200
+#define TICK_RATE_MS		 (float)(1.0 / MAX_RATE_HZ)
 
 #endif /* CONFIG_H_ */
