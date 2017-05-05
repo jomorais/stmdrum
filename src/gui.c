@@ -5,10 +5,14 @@
  *      Author: jomorais
  */
 #include <gui.h>
-
+#include <input.h>
+int i;
+char buffer[16];
 void gui_init ( void )
 {
+		int i  =0;
 		lcd16x2_init();
+		input_init();
 		lcd16x2_write_string(0,1,"TEST",5);
 		// set the initial state
 		gui_fsm_set_state( INIT );
@@ -32,7 +36,15 @@ void gui_update ( void )
 
 void gui_fsm_update ( void )
 {
-		//todo
+		input_update();
+		if(menu_button_pressed)
+		{
+				i++;
+				bzero(buffer,sizeof(buffer));
+				int size = sprintf(buffer,"i: %d",i);
+				menu_button_pressed = 0;
+				lcd16x2_write_string(0,1,buffer,size);
+		}
 }
 
 void gui_fsm_late_update ( void )

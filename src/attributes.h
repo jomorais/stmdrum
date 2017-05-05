@@ -15,6 +15,8 @@ typedef struct
 } fsm_controller_t;
 
 u8 status;
+u8 menu_button_pressed;
+u8 menu_button_last;
 u16 adc_raw[N_CHANNELS];
 u16 adc_smooth[N_CHANNELS];
 u32 note_play_time[N_CHANNELS];
