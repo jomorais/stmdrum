@@ -21,15 +21,15 @@
 #define GAIN 				 1
 
 // desabilita filtro
-#define ENABLE_KALMAN 		 1
-#define ENABLE_UART3 		 1
-#define ADC_FULLSCALE		 4096
-#define MIDI_THRESHOLD       1000
-#define MAX_TIME_NOTE        30
-#define MIDI_ENABLE_VELOCITY 1
-#define VELOCITY_SENSE       0.062011719
-#define MAX_VELOCITY         127
-#define MAX_RATE_HZ			 200
-#define TICK_RATE_MS		 (float)(1.0 / MAX_RATE_HZ)
+#define ENABLE_KALMAN 		 	  0
+#define ENABLE_UART3 		 		  1
+#define ADC_FULLSCALE		 			4096
+#define MIDI_THRESHOLD        1000
+#define MAX_TIME_NOTE         30
+#define MIDI_ENABLE_VELOCITY  1
+#define VELOCITY_SENSE        0.042011719
+#define MAX_VELOCITY          127
+#define MAX_RATE_HZ			 			100
+#define TICK_RATE_MS		 (float)(1.0 / MAX_RATE_HZ) * 1000
 
 #endif /* CONFIG_H_ */

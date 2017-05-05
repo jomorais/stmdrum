@@ -33,15 +33,15 @@
 #define N_CHARACTERS N_COLUMN * N_LINES
 char LCD_BUFFER[N_LINES][N_COLUMN];
 uint32_t lcd_tick;
+uint8_t lcd_update_needed;
 
-
-void lcd16x2_init_hw( void );
+void lcd16x2_init_hw ( void );
 void lcd16x2_init ( void );
-void lcd16x2_write_cmd( unsigned char cmd );
-void lcd16x2_write_data( unsigned char data );
-void lcd16x2_write_string ( u8 column, u8 line, const char * s , u8 length );
+void lcd16x2_write_cmd ( unsigned char cmd );
+void lcd16x2_write_data ( unsigned char data );
+void lcd16x2_write_string ( u8 column , u8 line , const char * s , u8 length );
 void lcd16x2_clear ( void );
 void lcd16x2_clear_buffer ( void );
-void lcd16x2_update( void );
+void lcd16x2_update ( void );
 
 #endif /* LCD16X2_H_ */

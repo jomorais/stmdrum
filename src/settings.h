@@ -9,5 +9,4 @@
 #define SETTINGS_H_
 #include <includes.h>
 
-
 #endif /* SETTINGS_H_ */

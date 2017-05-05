@@ -25,19 +25,18 @@
 #define NOTE_OFF_CMD 		0x80
 #define MAX_MIDI_VELOCITY 	127
 
+void protocol_init ( void );
+uint16_t protocol_raw_send ( char * data , uint16_t size );
+void protocol_send_midi ( char status , char pitch , char velocity );
 
-void protocol_init(void);
-uint16_t protocol_raw_send(char * data, uint16_t size);
-void protocol_send_midi(char status, char pitch, char velocity);
-
-void protocol_midi_note_off(u8 channel, u8 key, u8 velocity);
-void protocol_midi_note_on(u8 channel, u8 key, u8 velocity);
-void protocol_midi_key_pressure(u8 channel, u8 key, u8 value);
-void protocol_midi_controller_change(u8 channel, u8 control, u8 value);
-void protocol_midi_program_change(u8 channel, u8 program);
-void protocol_midi_channel_pressure(u8 channel, u8 value);
-void protocol_midi_pitch_bend(u8 channel, int value);
-void protocol_midi_command(u8 command, u8 channel, u8 param1, u8 param2);
-void protocol_midi_command_short(u8 command, u8 channel, u8 param1);
+void protocol_midi_note_off ( u8 channel , u8 key , u8 velocity );
+void protocol_midi_note_on ( u8 channel , u8 key , u8 velocity );
+void protocol_midi_key_pressure ( u8 channel , u8 key , u8 value );
+void protocol_midi_controller_change ( u8 channel , u8 control , u8 value );
+void protocol_midi_program_change ( u8 channel , u8 program );
+void protocol_midi_channel_pressure ( u8 channel , u8 value );
+void protocol_midi_pitch_bend ( u8 channel , int value );
+void protocol_midi_command ( u8 command , u8 channel , u8 param1 , u8 param2 );
+void protocol_midi_command_short ( u8 command , u8 channel , u8 param1 );
 
 #endif /* PROTOCOL_H_ */

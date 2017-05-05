@@ -14,12 +14,9 @@
 #include <includes.h>
 #include <attributes.h>
 
-#define ADC1_DR    ((uint32_t)0x4001244C)
 
-void adccontroller_dma1_init(void);
 void adccontroller_init(void);
-u16 adccontroller_read_channel(u8 channel);
 void adccontroller_update_all(void);
-void adccontroller_dma1_init(void);
+u16 adccontroller_read_channel(u8 channel);
 
 #endif /* ADCCONTROLLER_H_ */
