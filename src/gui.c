@@ -45,6 +45,25 @@ void gui_fsm_update ( void )
 				menu_button_pressed = 0;
 				lcd16x2_write_string(0,1,buffer,size);
 		}
+
+		if(encoder_state != ENC_STOP)
+		{
+				int size = 0;
+				bzero(buffer,sizeof(buffer));
+				if(encoder_state == ENC_RIGHT)
+				{
+						size = sprintf(buffer,"enc_state: right");
+						lcd16x2_write_string(0,0,buffer,size);
+				}
+				else
+				{
+						if(encoder_state == ENC_LEFT)
+						{
+								size = sprintf(buffer,"enc_state: left");
+								lcd16x2_write_string(0,0,buffer,size);
+						}
+				}
+		}
 }
 
 void gui_fsm_late_update ( void )
