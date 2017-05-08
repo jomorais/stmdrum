@@ -10,7 +10,6 @@ int i;
 char buffer[16];
 void gui_init ( void )
 {
-		int i  =0;
 		lcd16x2_init();
 		input_init();
 		lcd16x2_write_string(0,1,"TEST",5);

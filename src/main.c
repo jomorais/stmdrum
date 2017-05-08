@@ -13,4 +13,5 @@
 int main ( void )
 {
 		stmdrum_run();
+		return 0;
 }
