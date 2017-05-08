@@ -51,7 +51,7 @@ void midicontroller_update ( void )
 								{
 										if ( MIDI_ENABLE_VELOCITY )
 										{
-												velocity = velocity * VELOCITY_SENSE;
+												velocity = velocity * (float)(1 / VELOCITY_SENSE);
 												if ( velocity > MAX_VELOCITY )
 														velocity = MAX_VELOCITY;
 										}

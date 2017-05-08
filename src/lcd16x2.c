@@ -42,7 +42,7 @@ void lcd16x2_init ( void )
 void lcd16x2_lcd_strobe ( void )
 {
 		GPIO_WriteBit( LCD_PORT_CONTROL , LCD_EN , 1 );  // EN = 1
-		delay_us( 100 );
+		delay_us( 800 );
 		GPIO_WriteBit( LCD_PORT_CONTROL , LCD_EN , 0 );  // EN = 0
 }
 
@@ -57,7 +57,7 @@ void lcd16x2_write_bus ( unsigned char d )
 void lcd16x2_write_cmd ( unsigned char cmd )
 {
 		GPIO_WriteBit( LCD_PORT_CONTROL , LCD_RS , 0 );  // RS = 0 (command)
-		delay_us( 53 );
+		delay_us( 60 );
 		lcd16x2_write_bus( cmd >> 4 );
 		lcd16x2_lcd_strobe();
 		lcd16x2_write_bus( cmd );
@@ -67,7 +67,7 @@ void lcd16x2_write_cmd ( unsigned char cmd )
 void lcd16x2_write_data ( unsigned char data )
 {
 		GPIO_WriteBit( LCD_PORT_CONTROL , LCD_RS , 1 );  // RS = 1 (data)
-		delay_us( 1 );
+		delay_us( 60 );
 		lcd16x2_write_bus( data >> 4 );
 		lcd16x2_lcd_strobe();
 		lcd16x2_write_bus( data );
@@ -105,7 +105,6 @@ void lcd16x2_update ( void )
 						if ( s_idx_line == 2 )
 								lcd16x2_write_cmd( LCD_JUMP_LINE_4 );
 				}
-				lcd16x2_clear_buffer();
 				lcd_update_needed = 0;
 		}
 }

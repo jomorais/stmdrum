@@ -11,6 +11,7 @@
 #include <stm32f10x_usart.h>
 #include <stm32f10x_rcc.h>
 #include <config.h>
+#include <attributes.h>
 
 #define MIDI_NOTE_OFF          0x80
 #define MIDI_NOTE_ON           0x90

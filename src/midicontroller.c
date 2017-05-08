@@ -21,7 +21,7 @@ void midicontroller_init ( void )
 		int channel;
 		for ( channel = START_CHANNEL; channel < N_CHANNELS ; channel++ )
 		{
-				max_play_time[channel] = MAX_TIME_NOTE;
+				max_play_time[channel] = stmdrum_settings.MAX_TIME_NOTE;
 				note_play_time[channel] = 0;
 				active_note[channel] = NOT_ACTIVE_NOTE;
 		}
@@ -30,14 +30,14 @@ void midicontroller_update ( void )
 {
 		int channel;
 		float velocity;
-		if ( ( millis() - main_tick ) > TICK_RATE_MS )
+		if ( ( millis() - main_tick ) > (float)(1.0 / stmdrum_settings.MAX_RATE_HZ) * 1000 )
 		{
 				main_tick = millis();
 				for ( channel = START_CHANNEL; channel < N_CHANNELS ; channel++ )
 				{
 						adc_raw[channel] = adccontroller_read_channel(channel) * GAIN;
 
-						if ( ENABLE_KALMAN )
+						if ( stmdrum_settings.ENABLE_KALMAN )
 						{
 								kalman_update(channel);
 								velocity = (float) adc_smooth[channel];
@@ -45,19 +45,19 @@ void midicontroller_update ( void )
 						else
 								velocity = (float) adc_raw[channel];
 
-						if ( velocity > MIDI_THRESHOLD )
+						if ( velocity > stmdrum_settings.MIDI_THRESHOLD )
 						{
 								if ( active_note[channel] == NOT_ACTIVE_NOTE )
 								{
-										if ( MIDI_ENABLE_VELOCITY )
+										if ( stmdrum_settings.MIDI_ENABLE_VELOCITY )
 										{
-												velocity = velocity * VELOCITY_SENSE;
-												if ( velocity > MAX_VELOCITY )
-														velocity = MAX_VELOCITY;
+												velocity = velocity * (float)(1 / stmdrum_settings.VELOCITY_SENSE);;
+												if ( velocity > stmdrum_settings.MAX_VELOCITY )
+														velocity = stmdrum_settings.MAX_VELOCITY;
 										}
 										else
 										{
-												velocity = MAX_VELOCITY;
+												velocity = stmdrum_settings.MAX_VELOCITY;
 										}
 										protocol_midi_note_on( 0 , notes[channel] , (u8) velocity );
 										note_play_time[channel] = millis();

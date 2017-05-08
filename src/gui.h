@@ -11,20 +11,26 @@
 #include <settings.h>
 #include <attributes.h>
 
-#define INIT_SCREEN 	0
-#define MENU_SCREEN 	1
-#define MENU_PAGE_0	 	0
-#define MENU_PAGE_1 	1
-#define MENU_PAGE_2	 	2
-#define MENU_PAGE_3 	3
+#define N_PAGES			10
 
 typedef struct
 {
+	char title[16];
+	u8 page;
+	void *attribute;
+	float step;
+} menu_page_t;
 
+
+typedef struct
+{
+	u8 current_page;
+	menu_page_t menu_page[N_PAGES];
 } menu_controller_t;
 
+menu_controller_t menu_controller;
+
 /* FSM STATES */
-#define INIT 			    							0
 
 void gui_init ( void );
 void gui_update ( void );

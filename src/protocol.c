@@ -12,7 +12,7 @@ void protocol_usart_Init ( void )
 		GPIO_InitTypeDef gpioConfig3;
 
 		RCC_APB2PeriphClockCmd( RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOB , ENABLE );
-		if ( ENABLE_UART3 )
+		if ( stmdrum_settings.ENABLE_UART3 )
 		{
 				RCC_APB1PeriphClockCmd( RCC_APB1Periph_USART3 , ENABLE );
 		}
@@ -28,7 +28,7 @@ void protocol_usart_Init ( void )
 		gpioConfig.GPIO_Pin = GPIO_Pin_10;
 		GPIO_Init( GPIOA , &gpioConfig );
 
-		if ( ENABLE_UART3 )
+		if ( stmdrum_settings.ENABLE_UART3 )
 		{
 				//PB10 = USART3.TX => Alternative Function Output
 				gpioConfig3.GPIO_Mode = GPIO_Mode_AF_PP;
@@ -55,7 +55,7 @@ void protocol_usart_Init ( void )
 		USART_Init( USART1 , &usartConfig );
 		USART_Cmd( USART1 , ENABLE );
 
-		if ( ENABLE_UART3 )
+		if ( stmdrum_settings.ENABLE_UART3 )
 		{
 				USART_InitTypeDef usartConfig3;
 				USART_ClockInitTypeDef USART_ClockInitStructure3;
@@ -87,7 +87,7 @@ uint16_t protocol_raw_send ( char * data , uint16_t size )
 				{
 				}
 
-				if ( ENABLE_UART3 )
+				if ( stmdrum_settings.ENABLE_UART3 )
 				{
 						USART_SendData( USART3 , data[idx] );
 						while ( USART_GetFlagStatus( USART3 , USART_FLAG_TC ) == RESET )

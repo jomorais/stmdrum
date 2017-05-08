@@ -1,0 +1,44 @@
+[file_prefs]
+final_new_line=true
+ensure_convert_new_lines=false
+strip_trailing_spaces=false
+replace_tabs=false
+
+[indentation]
+indent_width=4
+indent_type=1
+indent_hard_tab_width=8
+detect_indent=false
+detect_indent_width=false
+indent_mode=2
+
+[project]
+name=stmdrum
+base_path=/home/pi/stmdrum
+description=
+file_patterns=
+
+[long line marker]
+long_line_behaviour=1
+long_line_column=72
+
+[files]
+current_page=0
+FILE_NAME_0=823;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Fgui.c;0;4
+FILE_NAME_1=377;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Fgui.h;0;4
+FILE_NAME_2=0;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Finput.c;0;4
+FILE_NAME_3=426;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Fconfig.h;0;4
+FILE_NAME_4=217;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Fattributes.h;0;4
+FILE_NAME_5=2898;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Flcd16x2.c;0;4
+
+[VTE]
+last_dir=/home/pi
+
+[build-menu]
+EX_00_LB=_Execute
+EX_00_CM=make install
+EX_00_WD=/home/pi/stmdrum
+CFT_00_LB=_Compile
+CFT_00_CM=gcc -Wall -c "%f"
+CFT_00_WD=
+filetypes=C;

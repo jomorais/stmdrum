@@ -20,9 +20,16 @@ void input_init()
 		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12 | GPIO_Pin_13; // encoder
 		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
 		GPIO_Init(GPIOB, &GPIO_InitStructure);
+		
+		GPIO_StructInit(&GPIO_InitStructure);
+		GPIO_InitStructure.GPIO_Pin = GPIO_Pin_14; // buzzer
+		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
+		GPIO_Init(GPIOB, &GPIO_InitStructure);
 
 		menu_button_last = 1;
 		menu_encoder_a_last = 0;
+		menu_button_pressed = 0;
+		
 }
 
 void input_menu_button_update()
@@ -31,12 +38,14 @@ void input_menu_button_update()
 		{
 				menu_button_pressed = 1;
 				menu_button_last = 0;
+				GPIO_WriteBit( GPIOB , GPIO_Pin_14 , 1 );
 		}
 		else
 		{
 				if(GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_2) == 1)
 				{
 						menu_button_last = 1;
+						GPIO_WriteBit( GPIOB , GPIO_Pin_14 , 0 );
 				}
 		}
 }
