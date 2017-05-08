@@ -49,7 +49,7 @@ void midicontroller_update ( void )
 						{
 								if ( active_note[channel] == NOT_ACTIVE_NOTE )
 								{
-										if ( stmdrum_settings.MIDI_ENABLE_VELOCITY )
+										if ( stmdrum_settings.ENABLE_VELOCITY )
 										{
 												velocity = velocity * (float)(1 / stmdrum_settings.VELOCITY_SENSE);;
 												if ( velocity > stmdrum_settings.MAX_VELOCITY )

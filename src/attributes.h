@@ -17,14 +17,14 @@ typedef struct
 typedef struct
 {
 		u16 MIDI_THRESHOLD;
-		u8 VELOCITY_SENSE;
-		u8 MAX_VELOCITY;
-		u8 MAX_TIME_NOTE;
+		u16 VELOCITY_SENSE;
+		u16 MAX_VELOCITY;
+		u16 MAX_TIME_NOTE;
 		u16 MAX_RATE_HZ;
-		u8 MIDI_ENABLE_VELOCITY;
-		u8 ENABLE_KALMAN;
-		u8 ENABLE_UART3;
-		u8 ENABLE_VELOCITY;
+		u16 ENABLE_KALMAN;
+		u16 ENABLE_UART3;
+		u16 ENABLE_VELOCITY;
+		float tick_rate_ms;
 } stmdrum_settings_t;
 
 u8 status;

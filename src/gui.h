@@ -11,7 +11,17 @@
 #include <settings.h>
 #include <attributes.h>
 
-#define N_PAGES			10
+#define N_PAGES			8
+
+#define PAGE_EXIT		0
+#define PAGE_1			1
+#define PAGE_2			2
+#define PAGE_3			3
+#define PAGE_4			4
+#define PAGE_5			5
+#define PAGE_6			6
+#define PAGE_7			7
+#define PAGE_8			8
 
 typedef struct
 {
@@ -24,8 +34,8 @@ typedef struct
 
 typedef struct
 {
-	u8 current_page;
-	menu_page_t menu_page[N_PAGES];
+	int current_page;
+	menu_page_t menu_page[N_PAGES + 1];
 } menu_controller_t;
 
 menu_controller_t menu_controller;
@@ -40,5 +50,6 @@ void gui_fsm_set_state ( int fsm_state );
 u8 gui_fsm_get_state ( void );
 void gui_fsm_update ();
 void gui_fsm_states ( void );
+void gui_show_page(u8 page);
 
 #endif /* GUI_H_ */

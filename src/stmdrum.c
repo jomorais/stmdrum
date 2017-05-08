@@ -16,7 +16,6 @@ void stmdrum_init ( void )
 		stmdrum_settings.MIDI_THRESHOLD = 1000;
 		stmdrum_settings.MAX_VELOCITY = 127;
 		stmdrum_settings.VELOCITY_SENSE= 80;
-		stmdrum_settings.MIDI_ENABLE_VELOCITY = 1;
 		utils_systick_init();
 		adccontroller_init();
 		kalman_init();
