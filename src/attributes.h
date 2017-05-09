@@ -8,6 +8,57 @@
 #ifndef ATTRIBUTES_H_
 #define ATTRIBUTES_H_
 #include <config.h>
+
+
+#define N_PAGES			8
+
+#define PAGE_EXIT		0
+#define PAGE_1			1
+#define PAGE_2			2
+#define PAGE_3			3
+#define PAGE_4			4
+#define PAGE_5			5
+#define PAGE_6			6
+#define PAGE_7			7
+#define PAGE_8			8
+#define RUN					9
+#define ON_MENU			10
+
+#define EDIT_MODE		1
+
+#define DEFAULT_ENABLE_KALMAN			1
+#define DEFAULT_ENABLE_VELOCITY 	1
+#define DEFAULT_ENABLE_UART3			0
+#define DEFAULT_MAX_RATE_HZ				100
+#define DEFAULT_MAX_TIME_NOTE			30
+#define DEFAULT_MIDI_THRESHOLD		1000
+#define DEFAULT_MAX_VELOCITY			127
+#define DEFAULT_VELOCITY_SENSE		6
+
+
+typedef struct
+{
+	char title[16];
+	u8 page;
+	void *attribute;
+	u16 step;
+	u8 data_type;
+	u16 max;
+	u16 min;
+	u16 eeprom_addr;
+} menu_page_t;
+
+
+typedef struct
+{
+	int current_page;
+	u8 editmode;
+	u8 menu_state;
+	menu_page_t menu_page[N_PAGES + 1];
+} menu_controller_t;
+
+menu_controller_t menu_controller;
+
 typedef struct
 {
 		u8 fsm_state;

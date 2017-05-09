@@ -51,7 +51,7 @@ void midicontroller_update ( void )
 								{
 										if ( stmdrum_settings.ENABLE_VELOCITY )
 										{
-												velocity = velocity * (float)(1 / stmdrum_settings.VELOCITY_SENSE);;
+												velocity = velocity * (float)(1.0 / stmdrum_settings.VELOCITY_SENSE);
 												if ( velocity > stmdrum_settings.MAX_VELOCITY )
 														velocity = stmdrum_settings.MAX_VELOCITY;
 										}
