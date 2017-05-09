@@ -1,5 +1,5 @@
 [file_prefs]
-final_new_line=true
+final_new_line=false
 ensure_convert_new_lines=false
 strip_trailing_spaces=false
 replace_tabs=false
@@ -24,7 +24,7 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=823;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Fgui.c;0;4
+FILE_NAME_0=1334;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Fgui.c;0;4
 FILE_NAME_1=377;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Fgui.h;0;4
 FILE_NAME_2=0;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Finput.c;0;4
 FILE_NAME_3=426;C;0;EUTF-8;1;1;1;%2Fhome%2Fpi%2Fstmdrum%2Fsrc%2Fconfig.h;0;4

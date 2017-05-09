@@ -22,19 +22,28 @@
 #define PAGE_6			6
 #define PAGE_7			7
 #define PAGE_8			8
+#define RUN				9
+#define ON_MENU			10
+
+#define EDIT_MODE		1
 
 typedef struct
 {
 	char title[16];
 	u8 page;
 	void *attribute;
-	float step;
+	u16 step;
+	u8 data_type;
+	u16 max;
+	u16 min;
 } menu_page_t;
 
 
 typedef struct
 {
 	int current_page;
+	u8 editmode;
+	u8 menu_state;
 	menu_page_t menu_page[N_PAGES + 1];
 } menu_controller_t;
 
@@ -44,12 +53,8 @@ menu_controller_t menu_controller;
 
 void gui_init ( void );
 void gui_update ( void );
-void gui_fsm_late_update ( void );
-void gui_fsm_start ( void );
-void gui_fsm_set_state ( int fsm_state );
-u8 gui_fsm_get_state ( void );
-void gui_fsm_update ();
-void gui_fsm_states ( void );
+void gui_next_page (void);
+void gui_previous_page(void);
 void gui_show_page(u8 page);
 
 #endif /* GUI_H_ */
