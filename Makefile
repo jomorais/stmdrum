@@ -67,7 +67,7 @@ all: dir $(OBJECTS) binaries
 binaries: stmdrum.elf stmdrum.hex stmdrum.bin stmdrum.lst size
 
 CFLAGS  = -g3 -Wall -Wno-missing-braces -O3
-CFLAGS += -ffunction-sections -fdata-sections -fmessage-length=0 -MMD -MP
+CFLAGS += -ffunction-sections -fdata-sections -fmessage-length=0
 CFLAGS += -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -Wl,-M=stmdrum.map -Wl,-TLinkerScript.ld -DSTM32F100RBTx -DSTM32F1 -DSTM32 -DDEBUG -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD_VL
 CFLAGS += $(INCLUDES) $(STARTUP)/startup_stm32.s
 
