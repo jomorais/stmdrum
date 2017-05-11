@@ -76,4 +76,3 @@ void adccontroller_update_all(void)
 		adc_raw[channel] = adccontroller_read_channel(channel) * GAIN;
 }
 
-

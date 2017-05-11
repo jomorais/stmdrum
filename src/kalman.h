@@ -12,7 +12,6 @@
 #include <config.h>
 #include <attributes.h>
 
-
 #define ADC_KALMAN_P 0.05728
 #define ADC_KALMAN_Q 0.525
 #define ADC_KALMAN_R 0.051233
@@ -29,9 +28,7 @@ typedef struct
 
 kalman_state adc_kalman_state[N_CHANNELS];
 
-
 void kalman_init ( void );
-void kalman_update ( void );
-
+void kalman_update ( u8 channel );
 
 #endif /* KALMAN_H_ */
