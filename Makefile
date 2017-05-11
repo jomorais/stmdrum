@@ -47,11 +47,13 @@ OBJECTS = system_stm32f10x.o \
 	stm32f10x_adc.o \
 	stm32f10x_usart.o \
 	stm32f10x_gpio.o \
+	stm32f10x_flash.o \
 	misc.o \
 	utils.o  \
 	kalman.o \
 	adccontroller.o  \
 	gui.o \
+	eeprom.o \
 	settings.o \
 	input.o \
 	lcd16x2.o \
@@ -64,76 +66,78 @@ all: dir $(OBJECTS) binaries
 
 binaries: stmdrum.elf stmdrum.hex stmdrum.bin stmdrum.lst size
 
-CFLAGS  = -g -Wall --specs=nosys.specs -Wno-missing-braces -O3
-CFLAGS += -ffunction-sections -fdata-sections -ffast-math -fsingle-precision-constant 
-CFLAGS += -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -Wl,-M=main.map -Wl,-TLinkerScript.ld -DSTM32F10X_MD_VL -DUSE_STDPERIPH_DRIVER
+CFLAGS  = -g3 -Wall -Wno-missing-braces -O3
+CFLAGS += -ffunction-sections -fdata-sections -fmessage-length=0 -MMD -MP
+CFLAGS += -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -Wl,-M=stmdrum.map -Wl,-TLinkerScript.ld -DSTM32F100RBTx -DSTM32F1 -DSTM32 -DDEBUG -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD_VL
 CFLAGS += $(INCLUDES) $(STARTUP)/startup_stm32.s
+
+CFLAGS_C = -mcpu=cortex-m3 -mthumb -mfloat-abi=soft -DSTM32F100RBTx -DSTM32F1 -DSTM32 -DDEBUG -DUSE_STDPERIPH_DRIVER -DSTM32F10X_MD_VL $(INCLUDES) -O2 -g3 -Wall -fmessage-length=0 -ffunction-sections
 
 dir:
 	mkdir -p $(BUILD_DIR)
 
 system_stm32f10x.o: $(SRC)/system_stm32f10x.c
-	$(CC) $(CFLAGS) -c $(SRC)/system_stm32f10x.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/system_stm32f10x.c
 
 core_cm3.o: $(CMSIS_CORE)/core_cm3.c
-	$(CC) $(CFLAGS) -c $(CMSIS_CORE)/core_cm3.c
+	$(CC) $(CFLAGS_C) -c $(CMSIS_CORE)/core_cm3.c
 
 syscalls.o: $(SRC)/syscalls.c
-	$(CC) $(CFLAGS) -c $(SRC)/syscalls.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/syscalls.c
 
 stm32f10x_rcc.o: $(STD_SRC)/stm32f10x_rcc.c
-	$(CC) $(CFLAGS) -c $(STD_SRC)/stm32f10x_rcc.c
+	$(CC) $(CFLAGS_C) -c $(STD_SRC)/stm32f10x_rcc.c
 
 stm32f10x_adc.o: $(STD_SRC)/stm32f10x_adc.c
-	$(CC) $(CFLAGS) -c $(STD_SRC)/stm32f10x_adc.c
+	$(CC) $(CFLAGS_C) -c $(STD_SRC)/stm32f10x_adc.c
 
 stm32f10x_usart.o: $(STD_SRC)/stm32f10x_usart.c
-	$(CC) $(CFLAGS) -c $(STD_SRC)/stm32f10x_usart.c
+	$(CC) $(CFLAGS_C) -c $(STD_SRC)/stm32f10x_usart.c
 
 stm32f10x_gpio.o: $(STD_SRC)/stm32f10x_gpio.c
-	$(CC) $(CFLAGS) -c $(STD_SRC)/stm32f10x_gpio.c
+	$(CC) $(CFLAGS_C) -c $(STD_SRC)/stm32f10x_gpio.c
 
 stm32f10x_flash.o: $(STD_SRC)/stm32f10x_flash.c
-	$(CC) $(CFLAGS) -c $(STD_SRC)/stm32f10x_flash.c
+	$(CC) $(CFLAGS_C) -c $(STD_SRC)/stm32f10x_flash.c
 
 eeprom.o: $(SRC)/eeprom.c
-	$(CC) $(CFLAGS) -c $(SRC)/eeprom.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/eeprom.c
 
 misc.o: $(STD_SRC)/misc.c
-	$(CC) $(CFLAGS) -c $(STD_SRC)/misc.c
+	$(CC) $(CFLAGS_C) -c $(STD_SRC)/misc.c
 
 utils.o: $(SRC)/utils.c
-	$(CC) $(CFLAGS) -c $(SRC)/utils.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/utils.c
 
 kalman.o: $(SRC)/kalman.c
-	$(CC) $(CFLAGS) -c $(SRC)/kalman.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/kalman.c
 
 adccontroller.o: $(SRC)/adccontroller.c
-	$(CC) $(CFLAGS) -c $(SRC)/adccontroller.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/adccontroller.c
 
 gui.o: $(SRC)/gui.c
-	$(CC) $(CFLAGS) -c $(SRC)/gui.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/gui.c
 
 settings.o: $(SRC)/settings.c
-	$(CC) $(CFLAGS) -c $(SRC)/settings.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/settings.c
 
 input.o: $(SRC)/input.c
-	$(CC) $(CFLAGS) -c $(SRC)/input.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/input.c
 
 lcd16x2.o: $(SRC)/lcd16x2.c
-	$(CC) $(CFLAGS) -c $(SRC)/lcd16x2.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/lcd16x2.c
 
 protocol.o: $(SRC)/protocol.c
-	$(CC) $(CFLAGS) -c $(SRC)/protocol.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/protocol.c
 
 midicontroller.o: $(SRC)/midicontroller.c
-	$(CC) $(CFLAGS) -c $(SRC)/midicontroller.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/midicontroller.c
 
 stmdrum.o: $(SRC)/stmdrum.c
-	$(CC) $(CFLAGS) -c $(SRC)/stmdrum.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/stmdrum.c
 
 main.o: $(SRC)/main.c
-	$(CC) $(CFLAGS) -c $(SRC)/main.c
+	$(CC) $(CFLAGS_C) -c $(SRC)/main.c
 
 stmdrum.elf: $(OBJECTS)
 	$(CC) $(CFLAGS) -o stmdrum.elf $(OBJECTS)
@@ -152,7 +156,7 @@ size: stmdrum.elf
 
 
 clean: 
-	rm -rf $(BUILD_DIR) $(SRC)/*.gch $(INC)/*.gch $(CMSIS_CORE)/*.gch $(CMSIS_DEVICE)/*.gch $(STD_INC)/*.gch $(STD_SRC)/*.gch *.elf *.bin *.o *.map *.gch *.hex *.lst *~
+	rm -rf $(BUILD_DIR) $(SRC)/*.gch $(INC)/*.gch $(CMSIS_CORE)/*.gch $(CMSIS_DEVICE)/*.gch $(STD_INC)/*.gch $(STD_SRC)/*.gch *.elf *.bin *.o *.map *.gch *.hex *.lst *~ *.d
 
 install: all
 	st-flash write stmdrum.bin 0x08000000

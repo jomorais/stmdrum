@@ -22,6 +22,7 @@
 #define MIDI_THRESHOLD_ADDR			MAX_TIME_NOTE_ADDR 		+ 2
 #define MAX_VELOCITY_ADDR				MIDI_THRESHOLD_ADDR 	+ 2
 #define VELOCITY_SENSE_ADDR			MAX_VELOCITY_ADDR 		+ 2
+#define NOTE_OFF_ACTIVE_ADDR		VELOCITY_SENSE_ADDR 	+ 2
 
 u16 settings_init(void);
 u16 settings_write(u16 addr, u16 data);

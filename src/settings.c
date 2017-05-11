@@ -27,6 +27,7 @@ u16 settings_init(void)
 						EE_ReadVariable( MIDI_THRESHOLD_ADDR, &stmdrum_settings.MIDI_THRESHOLD);
 						EE_ReadVariable( MAX_VELOCITY_ADDR, &stmdrum_settings.MAX_VELOCITY);
 						EE_ReadVariable( VELOCITY_SENSE_ADDR, &stmdrum_settings.VELOCITY_SENSE);
+						EE_ReadVariable( NOTE_OFF_ACTIVE_ADDR, &stmdrum_settings.ENABLE_NOTE_OFF);
 
 						return 0;
 				}
@@ -40,6 +41,7 @@ u16 settings_init(void)
 						stmdrum_settings.MIDI_THRESHOLD = DEFAULT_MIDI_THRESHOLD;
 						stmdrum_settings.MAX_VELOCITY = DEFAULT_MAX_VELOCITY;
 						stmdrum_settings.VELOCITY_SENSE = DEFAULT_VELOCITY_SENSE;
+						stmdrum_settings.ENABLE_NOTE_OFF = DEFAULT_NOTE_OFF_ACTIVE;
 
 						EE_WriteVariable( FORMATTED_ADDR, FORMATTED);
 						EE_WriteVariable( ENABLE_KALMAN_ADDR, stmdrum_settings.ENABLE_KALMAN);
@@ -50,6 +52,7 @@ u16 settings_init(void)
 						EE_WriteVariable( MIDI_THRESHOLD_ADDR, stmdrum_settings.MIDI_THRESHOLD);
 						EE_WriteVariable( MAX_VELOCITY_ADDR, stmdrum_settings.MAX_VELOCITY);
 						EE_WriteVariable( VELOCITY_SENSE_ADDR, stmdrum_settings.VELOCITY_SENSE);
+						EE_WriteVariable( NOTE_OFF_ACTIVE_ADDR, stmdrum_settings.ENABLE_NOTE_OFF);
 
 						return 1;
 				}

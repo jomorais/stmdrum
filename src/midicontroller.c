@@ -72,7 +72,8 @@ void midicontroller_update ( void )
 										{
 												note_play_time[channel] = millis();
 												active_note[channel] = NOT_ACTIVE_NOTE;
-												protocol_midi_note_off( 0 , notes[channel] , (u8) velocity );
+												if (stmdrum_settings.ENABLE_NOTE_OFF == 1)
+														protocol_midi_note_off( 0 , notes[channel] , (u8) velocity );
 										}
 								}
 						}

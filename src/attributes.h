@@ -10,7 +10,7 @@
 #include <config.h>
 
 
-#define N_PAGES			8
+#define N_PAGES			9
 
 #define PAGE_EXIT		0
 #define PAGE_1			1
@@ -21,19 +21,21 @@
 #define PAGE_6			6
 #define PAGE_7			7
 #define PAGE_8			8
-#define RUN					9
-#define ON_MENU			10
+#define PAGE_9			9
+#define RUN					250
+#define ON_MENU			251
 
 #define EDIT_MODE		1
 
 #define DEFAULT_ENABLE_KALMAN			1
 #define DEFAULT_ENABLE_VELOCITY 	1
 #define DEFAULT_ENABLE_UART3			0
-#define DEFAULT_MAX_RATE_HZ				100
+#define DEFAULT_MAX_RATE_HZ				200
 #define DEFAULT_MAX_TIME_NOTE			30
-#define DEFAULT_MIDI_THRESHOLD		1000
+#define DEFAULT_MIDI_THRESHOLD		300
 #define DEFAULT_MAX_VELOCITY			127
-#define DEFAULT_VELOCITY_SENSE		6
+#define DEFAULT_VELOCITY_SENSE		20
+#define DEFAULT_NOTE_OFF_ACTIVE		0
 
 
 typedef struct
@@ -75,6 +77,7 @@ typedef struct
 		u16 ENABLE_KALMAN;
 		u16 ENABLE_UART3;
 		u16 ENABLE_VELOCITY;
+		u16 ENABLE_NOTE_OFF;
 		float tick_rate_ms;
 } stmdrum_settings_t;
 
